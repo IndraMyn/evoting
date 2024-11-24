@@ -8,7 +8,7 @@ interface ITemplates {
 export const Templates = (props: ITemplates) => {
   return (
     <>
-      <div className="w-screen h-20 flex bg-red-100 items-center justify-center sticky top-0 z-50 drop-shadow-sm mb-5">
+      <div className="w-full h-20 flex bg-red-100 items-center justify-center sticky top-0 z-50 drop-shadow-sm mb-5">
         <Navbar />
       </div>
 

@@ -13,12 +13,15 @@ const Page = () => {
         {
           id: 1,
           value: "ayam",
+          percentage: 50
         },
         {
           id: 2,
           value: "telur",
+          percentage: 50
         },
       ],
+      totalVotes: 100
     },
     {
       name: "Sigit Gendang",
@@ -30,12 +33,15 @@ const Page = () => {
         {
           id: 1,
           value: "Dedemit",
+          percentage: 65
         },
         {
           id: 2,
           value: "Decul",
+          percentage: 35
         },
       ],
+      totalVotes: 1200
     },
     {
       name: "Dayat Moshing",
@@ -47,19 +53,22 @@ const Page = () => {
         {
           id: 1,
           value: "Orde jaya",
+          percentage: 45
         },
         {
           id: 2,
           value: "Legiun terdepan",
+          percentage: 55
         },
       ],
+      totalVotes: 980
     },
   ];
 
   return (
     <Templates>
-      <div className="grid grid-cols-3 gap-10 ">
-        <div>1</div>
+      <div className="grid md:grid-cols-3 gap-10 ">
+        <div></div>
         <div className="w-full">
           {dummy.map((item, i) => (
             <div className="mb-3" key={i}>
@@ -67,7 +76,7 @@ const Page = () => {
             </div>
           ))}
         </div>
-        <div>2</div>
+        <div></div>
       </div>
     </Templates>
   );

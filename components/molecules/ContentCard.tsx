@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { Progress } from "@radix-ui/react-progress";
 import { Button } from "../ui/button";
@@ -10,10 +12,13 @@ import {
   CardFooter,
 } from "../ui/card";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 type IOptions = {
   id: number;
   value: string;
+  isVoted?: boolean;
+  percentage: number;
 };
 
 type ContentCard = {
@@ -22,16 +27,24 @@ type ContentCard = {
   name: string;
   image: string;
   option: IOptions[];
+  voted?: number;
+  totalVotes: number;
 };
 
 const ContentCard = (props: ContentCard) => {
+  const [voted, setVoted] = useState<number>(0);
+
+  useEffect(() => {
+    if (props.voted) setVoted(props.voted);
+  }, [props.voted]);
+
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle className="text-md flex flex-1 flex-row items-center gap-3 mb-3">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>IMG</AvatarFallback>
           </Avatar>
           <label htmlFor="">{props.name}</label>
         </CardTitle>
@@ -52,8 +65,16 @@ const ContentCard = (props: ContentCard) => {
           <Progress className="bg-red-200" value={33} />
         </div>
         <div className="flex flex-1 w-full gap-5">
-          {props.option.map((option) => (
-            <Button className="flex-1" variant="outline">
+          {props.option.map((option, i) => (
+            <Button
+              key={i}
+              onClick={() =>
+                voted == option.id ? setVoted(0) : setVoted(option.id)
+              }
+              className="flex-1"
+              variant={voted == option.id ? "default" : "outline"}
+            >
+              {voted ? `${option.percentage}% ` : ""}
               {option.value}
             </Button>
           ))}
