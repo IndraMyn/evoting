@@ -1,5 +1,5 @@
-import Navbar from "@/components/partials/navbar";
 import ContentCard from "@/components/molecules/ContentCard";
+import { Templates } from "@/components/partials/templates";
 
 const Page = () => {
   const dummy = [
@@ -57,25 +57,19 @@ const Page = () => {
   ];
 
   return (
-    <>
-      <div className="w-screen h-20 flex bg-red-100 items-center justify-center sticky top-0 z-50 drop-shadow-sm">
-        <Navbar />
-      </div>
-
-      <div className="mt-5">
-        <div className="grid grid-cols-3 gap-10 ">
-          <div>1</div>
-          <div className="w-full">
-            {dummy.map((item, i) => (
-              <div className="mb-3">
-                <ContentCard {...item} />
-              </div>
-            ))}
-          </div>
-          <div>2</div>
+    <Templates>
+      <div className="grid grid-cols-3 gap-10 ">
+        <div>1</div>
+        <div className="w-full">
+          {dummy.map((item, i) => (
+            <div className="mb-3" key={i}>
+              <ContentCard {...item} />
+            </div>
+          ))}
         </div>
+        <div>2</div>
       </div>
-    </>
+    </Templates>
   );
 };
 

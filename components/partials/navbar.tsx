@@ -29,7 +29,7 @@ const components: { title: string; href: string }[] = [
   },
 ]
 
-export default function Navbat() {
+export default function Navbar() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -44,6 +44,13 @@ export default function Navbat() {
           <Link href="/login" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Vote
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/vote/create" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              upload
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
