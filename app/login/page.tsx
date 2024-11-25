@@ -2,15 +2,17 @@
 
 import Image from "next/image";
 import VoteIllustration from "@/assets/vote_illustration.png";
-import Link from "next/link";
-import { useGoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
 
   const handleLogin = useGoogleLogin({
-    onSuccess: (codeResponse) => router.push("/"),
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+      router.push("/");
+    },
     flow: "auth-code",
   });
 

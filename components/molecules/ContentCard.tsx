@@ -26,7 +26,7 @@ type ContentCard = {
   caption: string;
   name: string;
   image: string;
-  option: IOptions[];
+  options: IOptions[];
   voted?: number;
   totalVotes: number;
 };
@@ -65,7 +65,7 @@ const ContentCard = (props: ContentCard) => {
           <Progress className="bg-red-200" value={33} />
         </div>
         <div className="flex flex-1 w-full gap-5">
-          {props.option.map((option, i) => (
+          {props.options.map((option, i) => (
             <Button
               key={i}
               onClick={() =>
