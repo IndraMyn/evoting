@@ -13,6 +13,7 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type IOptions = {
   id: number;
@@ -22,6 +23,7 @@ type IOptions = {
 };
 
 type ContentCard = {
+  code: string;
   avatar: string;
   caption: string;
   name: string;
@@ -37,6 +39,8 @@ const ContentCard = (props: ContentCard) => {
   useEffect(() => {
     if (props.voted) setVoted(props.voted);
   }, [props.voted]);
+
+  const router = useRouter();
 
   return (
     <Card className="w-full">
@@ -58,6 +62,7 @@ const ContentCard = (props: ContentCard) => {
           height={0}
           sizes="100vw"
           className="w-full h-auto object-contain"
+          onClick={() => router.push(`/vote/${props.code}`)}
         />
       </CardContent>
       <CardFooter className="flex flex-col gap-3">

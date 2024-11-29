@@ -2,19 +2,19 @@
 
 import Image from "next/image";
 import VoteIllustration from "@/assets/vote_illustration.png";
-import { useGoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
 
-  const handleLogin = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      console.log(codeResponse);
+  const onLogin = (credentialResponse: CredentialResponse) => {
+    console.log(credentialResponse.credential);
+    if (credentialResponse.credential) {
+      localStorage.setItem("token", credentialResponse.credential);
       router.push("/");
-    },
-    flow: "auth-code",
-  });
+    }
+  };
 
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -37,18 +37,8 @@ const Page = () => {
               Login dengan Google untuk melanjutkan
             </p>
 
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-9">
-              <button
-                onClick={handleLogin}
-                className="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
-              >
-                <img
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
-                  alt="Google"
-                  className="w-5 h-5 mr-2"
-                />
-                Google
-              </button>
+            <div className="flex justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-9">
+              <GoogleLogin onSuccess={onLogin} useOneTap />
             </div>
           </div>
 

@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 const Page = () => {
   const dummy = [
     {
+      code: "AAVV123",
       name: "David Dodetin",
       avatar: "https://github.com/shadcn.png",
       caption: "Telur dulu atau Ayam dulu",
@@ -30,6 +31,7 @@ const Page = () => {
       totalVotes: 100,
     },
     {
+      code: "AAVV124",
       name: "Sigit Gendang",
       avatar: "https://github.com/shadcn.png",
       caption: "Prediksi calon juara la liga musim ini",
@@ -50,6 +52,7 @@ const Page = () => {
       totalVotes: 1200,
     },
     {
+      code: "AAXB123",
       name: "Dayat Moshing",
       avatar: "https://github.com/shadcn.png",
       caption: "Dulu ikut faksi mana",

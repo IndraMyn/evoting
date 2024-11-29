@@ -14,18 +14,17 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
-const components: { title: string; href: string }[] = [
+const components: { title: string; href: string, onClick?: () => void }[] = [
   {
     title: "Profile",
     href: "/profile",
   },
   {
-    title: "My Content",
-    href: "/docs/primitives/hover-card",
-  },
-  {
     title: "Logout",
     href: "/login",
+    onClick: () => {
+      localStorage.clear();
+    }
   },
 ]
 
@@ -36,21 +35,14 @@ export default function Navbar() {
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Feed
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/login" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Vote
+              Beranda
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link href="/vote/create" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              upload
+              Buat Vote
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
@@ -63,6 +55,7 @@ export default function Navbar() {
                   key={component.title}
                   title={component.title}
                   href={component.href}
+                  onClick={component.onClick}
                 >
                 </ListItem>
               ))}
