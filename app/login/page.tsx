@@ -16,6 +16,12 @@ const Page = () => {
     }
   };
 
+  const onGuestLogin = () => {
+    // Simpan status login sebagai tamu (opsional, hanya di memori lokal)
+    localStorage.setItem("guest", "true");
+    router.push("/");
+  };
+
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen">
       <div className="w-full max-w-6xl flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden h-[600px]">
@@ -34,11 +40,18 @@ const Page = () => {
             </h1>
 
             <p className="text-sm text-center text-gray-600 mb-6 mt-12">
-              Login dengan Google untuk melanjutkan
+              Login dengan Google untuk melanjutkan atau masuk sebagai tamu
             </p>
 
-            <div className="flex justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-9">
+            <div className="flex flex-col items-center space-y-4">
               <GoogleLogin onSuccess={onLogin} useOneTap />
+
+              <button
+                onClick={onGuestLogin}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Masuk tanpa Akun
+              </button>
             </div>
           </div>
 

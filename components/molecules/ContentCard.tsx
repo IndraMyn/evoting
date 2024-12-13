@@ -1,7 +1,6 @@
 "use client";
 
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { Progress } from "@radix-ui/react-progress";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -43,46 +42,60 @@ const ContentCard = (props: ContentCard) => {
   const router = useRouter();
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-md flex flex-1 flex-row items-center gap-3 mb-3">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+    <Card className="w-full max-w-lg rounded-xl shadow-md border bg-white overflow-hidden">
+      {/* Header */}
+      <CardHeader className="p-6 bg-blue-50">
+        <CardTitle className="flex items-center gap-4 mb-2 text-gray-800">
+          <Avatar className="shadow">
+            <AvatarImage src={props.avatar} alt={props.name} />
             <AvatarFallback>IMG</AvatarFallback>
           </Avatar>
-          <label htmlFor="">{props.name}</label>
+          <div>
+            <label className="text-lg font-semibold">{props.name}</label>
+            <p className="text-sm text-gray-600">{props.caption}</p>
+          </div>
         </CardTitle>
-        <CardDescription>{props.caption}</CardDescription>
       </CardHeader>
-      <CardContent>
+
+      {/* Content */}
+      <CardContent className="p-0">
         <Image
           src={props.image}
           alt="img"
           width={0}
           height={0}
           sizes="100vw"
-          className="w-full h-auto object-contain"
+          className="w-full h-auto object-cover cursor-pointer transition-transform hover:scale-105"
           onClick={() => router.push(`/vote/${props.code}`)}
         />
       </CardContent>
-      <CardFooter className="flex flex-col gap-3">
-        <div className="flex-1 w-full">
-          <Progress className="bg-red-200" value={33} />
-        </div>
-        <div className="flex flex-1 w-full gap-5">
-          {props.options.map((option, i) => (
+
+      {/* Footer */}
+      <CardFooter className="p-6 bg-gray-50 flex flex-col items-center gap-4">
+        {/* Voting Options */}
+        <div className="flex w-full gap-4">
+          {props.options.map((option) => (
             <Button
-              key={i}
+              key={option.id}
               onClick={() =>
-                voted == option.id ? setVoted(0) : setVoted(option.id)
+                voted === option.id ? setVoted(0) : setVoted(option.id)
               }
-              className="flex-1"
-              variant={voted == option.id ? "default" : "outline"}
+              className={`flex-1 px-4 py-2 rounded-lg text-sm transition-all ${
+                voted === option.id
+                  ? "bg-blue-500 text-white shadow-md"
+                  : "border border-blue-300 text-blue-600 hover:bg-blue-100"
+              }`}
             >
-              {voted ? `${option.percentage}% ` : ""}
-              {option.value}
+              {`${option.percentage}% ${option.value}`}
             </Button>
           ))}
+        </div>
+
+        {/* Total Votes */}
+        <div className="mt-4 w-full text-center">
+          <p className="text-lg font-semibold text-gray-700">
+            Total Suara: {props.totalVotes}
+          </p>
         </div>
       </CardFooter>
     </Card>

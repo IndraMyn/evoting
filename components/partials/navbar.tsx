@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,26 +12,46 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 
-const components: { title: string; href: string, onClick?: () => void }[] = [
-  {
-    title: "Profile",
-    href: "/profile",
-  },
-  {
-    title: "Logout",
-    href: "/login",
-    onClick: () => {
-      localStorage.clear();
-    }
-  },
-]
+const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-export default function Navbar() {
+  React.useEffect(() => {
+    // Check if user is logged in by looking for a token in localStorage
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    alert("Logout berhasil!");
+  };
+
+  const components = isLoggedIn
+    ? [
+        {
+          title: "Profile",
+          href: "/profile",
+        },
+        {
+          title: "Logout",
+          href: "/",
+          onClick: handleLogout,
+        },
+      ]
+    : [
+        {
+          title: "Login",
+          href: "/login",
+        },
+      ];
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
+        {/* Beranda */}
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -39,6 +59,8 @@ export default function Navbar() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+
+        {/* Buat Vote */}
         <NavigationMenuItem>
           <Link href="/vote/create" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -46,6 +68,8 @@ export default function Navbar() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+
+        {/* User */}
         <NavigationMenuItem>
           <NavigationMenuTrigger>User</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -56,16 +80,15 @@ export default function Navbar() {
                   title={component.title}
                   href={component.href}
                   onClick={component.onClick}
-                >
-                </ListItem>
+                />
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
-}
+  );
+};
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -89,6 +112,8 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
+
+export default Navbar;
